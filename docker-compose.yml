@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  api:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - sqlserver
+    networks:
+      - polimusic-net
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sqlserver
+    environment:
+      SA_PASSWORD: "Politecnica1"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    networks:
+      - polimusic-net
+
+networks:
+  polimusic-net:
+    driver: bridge
